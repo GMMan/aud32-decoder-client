@@ -16,6 +16,25 @@ to the address of the `bp` function in host code.
 
 Before running the program, start up QEMU with the patched ROM image.
 
+pyrsp Notes
+-----------
+
+There are some modifications to `pyrsp` required for this code to work:
+
+- Introduce `format_addr` function in class `RSP`. This converts an int address
+  to the expected format, since we're not using .elf symbols.
+  ```python
+  def format_addr(self, addr):
+    if isinstance(self, CortexM3):
+        addr &= ~1
+    return self.reg_fmt % addr
+  ```
+- Change `FaultHandler` address. In `rsp.py`, find this line:
+  ```python
+  addr=struct.unpack(">I", self.getreg(4, 0x0800000c))[0] - 1
+  ```
+  Change `0x0800000c` to `0x0000000c`.
+
 Usage
 -----
 
