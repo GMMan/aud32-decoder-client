@@ -12,7 +12,7 @@ if __name__ == '__main__':
     if len(sys.argv) != 3:
         print('Usage: {} <src_path> <dest_path>'.format(sys.argv[0]))
         sys.exit(1)
-    
+
     src_path = sys.argv[1]
     dest_path = sys.argv[2]
 
